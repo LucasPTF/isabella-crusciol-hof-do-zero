@@ -153,8 +153,8 @@ function CtaLink({ children, className = "" }) {
   );
 }
 
-function Reveal({ as: Tag = "div", className = "", children }) {
-  return <Tag className={`reveal ${className}`}>{children}</Tag>;
+function Reveal({ as: Tag = "div", className = "", children, ...props }) {
+  return <Tag {...props} className={`reveal ${className}`}>{children}</Tag>;
 }
 
 function Brand() {
