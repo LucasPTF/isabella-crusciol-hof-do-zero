@@ -507,8 +507,9 @@ li {
 
 .system-visual {
   position: relative;
+  isolation: isolate;
+  width: min(100%, 520px);
   aspect-ratio: 1;
-  max-width: 520px;
   margin-inline: auto;
   border: 1px solid rgba(196, 164, 107, 0.32);
   border-radius: 50%;
@@ -534,12 +535,12 @@ li {
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 136px;
-  height: 136px;
+  width: 122px;
+  height: 122px;
   text-align: center;
   border-radius: 50%;
   background: var(--oxblood);
-  box-shadow: 0 0 0 12px rgba(123, 37, 48, 0.16);
+  box-shadow: 0 0 0 14px rgba(123, 37, 48, 0.16);
   transform: translate(-50%, -50%);
 }
 
@@ -554,27 +555,61 @@ li {
 .system-center strong {
   margin-top: -22px;
   font-family: "Cormorant Garamond", serif;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .orbit {
   position: absolute;
+  z-index: 1;
+  min-width: 104px;
   padding: 9px 13px;
+  text-align: center;
+  white-space: nowrap;
   color: #ded7cd;
-  background: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #242320;
+  border: 1px solid rgba(196, 164, 107, 0.34);
   border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
 }
 
-.orbit-one { top: 6%; left: 39%; }
-.orbit-two { top: 26%; right: -2%; }
-.orbit-three { right: 4%; bottom: 18%; }
-.orbit-four { bottom: 1%; left: 34%; }
-.orbit-five { bottom: 21%; left: -2%; }
-.orbit-six { top: 24%; left: -4%; }
+.orbit-one {
+  top: -1px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-two {
+  top: 23%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.orbit-three {
+  right: 0;
+  bottom: 23%;
+  transform: translateY(50%);
+}
+
+.orbit-four {
+  bottom: -1px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.orbit-five {
+  bottom: 23%;
+  left: 0;
+  transform: translateY(50%);
+}
+
+.orbit-six {
+  top: 23%;
+  left: 0;
+  transform: translateY(-50%);
+}
 
 .map-section {
   background: var(--surface);
@@ -1696,18 +1731,21 @@ li {
     font-size: clamp(3rem, 13vw, 3.8rem);
   }
 
-  .system-visual {
-    width: 96%;
+  .system-center {
+    width: 98px;
+    height: 98px;
+    box-shadow: 0 0 0 10px rgba(123, 37, 48, 0.16);
   }
 
-  .system-center {
-    width: 112px;
-    height: 112px;
+  .system-center strong {
+    font-size: 16px;
   }
 
   .orbit {
-    padding: 7px 9px;
+    min-width: 82px;
+    padding: 7px 8px;
     font-size: 9px;
+    letter-spacing: 0.03em;
   }
 
   .section-heading {

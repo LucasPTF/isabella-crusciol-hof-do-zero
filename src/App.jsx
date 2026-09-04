@@ -282,7 +282,7 @@ function SalesPage({ hero }) {
               </p>
             </Reveal>
 
-            <Reveal className="system-visual" aria-label="Elementos que sustentam uma carreira na HOF">
+            <Reveal className="system-visual" role="img" aria-label="Elementos que sustentam uma carreira na HOF">
               <div className="system-center">
                 <CompassIcon />
                 <strong>Carreira HOF</strong>
