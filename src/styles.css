@@ -515,17 +515,77 @@ li {
   border-radius: 50%;
 }
 
-.system-visual::before,
-.system-visual::after {
+.system-visual::before {
   position: absolute;
-  inset: 14%;
+  z-index: -1;
+  inset: 20%;
   content: "";
-  border: 1px solid rgba(196, 164, 107, 0.16);
   border-radius: 50%;
+  background: radial-gradient(circle, rgba(123, 37, 48, 0.16), transparent 70%);
+  transform: scale(1.35);
 }
 
-.system-visual::after {
+.system-motion-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.system-track {
+  position: absolute;
+  border: 1px solid rgba(196, 164, 107, 0.16);
+  border-radius: 50%;
+  animation: system-spin var(--system-duration) linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.system-track::before,
+.system-track::after {
+  position: absolute;
+  top: 50%;
+  content: "";
+  border-radius: 50%;
+  background: var(--brass-light);
+  box-shadow: 0 0 0 5px rgba(196, 164, 107, 0.08), 0 0 18px rgba(196, 164, 107, 0.5);
+  transform: translateY(-50%);
+}
+
+.system-track::before {
+  left: -4px;
+  width: 8px;
+  height: 8px;
+}
+
+.system-track::after {
+  right: 11%;
+  width: 4px;
+  height: 4px;
+  opacity: 0.55;
+}
+
+.system-track-outer {
+  --system-duration: 24s;
+  inset: -1px;
+}
+
+.system-track-middle {
+  --system-duration: 18s;
+  inset: 14%;
+  animation-direction: reverse;
+}
+
+.system-track-inner {
+  --system-duration: 13s;
   inset: 30%;
+}
+
+.system-visual.motion-active .system-track,
+.system-visual.motion-active .system-center,
+.system-visual.motion-active .system-center svg {
+  animation-play-state: running;
 }
 
 .system-center {
@@ -533,15 +593,22 @@ li {
   top: 50%;
   left: 50%;
   z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 122px;
-  height: 122px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 132px;
+  height: 132px;
+  gap: 8px;
+  padding: 17px 12px 15px;
   text-align: center;
   border-radius: 50%;
   background: var(--oxblood);
   box-shadow: 0 0 0 14px rgba(123, 37, 48, 0.16);
   transform: translate(-50%, -50%);
+  animation: system-core-breathe 4.8s var(--ease-in-out) infinite;
+  animation-play-state: paused;
+  will-change: transform;
 }
 
 .system-center svg {
@@ -550,12 +617,25 @@ li {
   fill: none;
   stroke: var(--brass-light);
   stroke-width: 1.5;
+  animation: system-compass-turn 12s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
 }
 
 .system-center strong {
-  margin-top: -22px;
+  display: grid;
+  gap: 0;
+  margin: 0;
   font-family: "Cormorant Garamond", serif;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 0.88;
+}
+
+.system-center strong span:last-child {
+  color: var(--brass-light);
+  font-size: 16px;
+  letter-spacing: 0.12em;
 }
 
 .orbit {
@@ -609,6 +689,39 @@ li {
   top: 23%;
   left: 0;
   transform: translateY(-50%);
+}
+
+.can-animate .system-visual .orbit {
+  opacity: 0;
+}
+
+.can-animate .system-visual.is-visible .orbit {
+  animation: system-label-enter 620ms var(--ease-out) both;
+}
+
+.can-animate .system-visual.is-visible .orbit-two { animation-delay: 55ms; }
+.can-animate .system-visual.is-visible .orbit-three { animation-delay: 110ms; }
+.can-animate .system-visual.is-visible .orbit-four { animation-delay: 165ms; }
+.can-animate .system-visual.is-visible .orbit-five { animation-delay: 220ms; }
+.can-animate .system-visual.is-visible .orbit-six { animation-delay: 275ms; }
+
+@keyframes system-spin {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes system-core-breathe {
+  0%,
+  100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.035); }
+}
+
+@keyframes system-compass-turn {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes system-label-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .map-section {
@@ -1732,13 +1845,24 @@ li {
   }
 
   .system-center {
-    width: 98px;
-    height: 98px;
+    width: 108px;
+    height: 108px;
+    gap: 6px;
+    padding: 14px 9px 12px;
     box-shadow: 0 0 0 10px rgba(123, 37, 48, 0.16);
   }
 
   .system-center strong {
     font-size: 16px;
+  }
+
+  .system-center strong span:last-child {
+    font-size: 13px;
+  }
+
+  .system-center svg {
+    width: 25px;
+    height: 25px;
   }
 
   .orbit {
@@ -1863,5 +1987,16 @@ li {
 
   .map-line {
     transform: none;
+  }
+
+  .system-track,
+  .system-center,
+  .system-center svg,
+  .can-animate .system-visual.is-visible .orbit {
+    animation: none !important;
+  }
+
+  .can-animate .system-visual .orbit {
+    opacity: 1;
   }
 }

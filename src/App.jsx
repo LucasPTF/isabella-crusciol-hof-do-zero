@@ -282,10 +282,23 @@ function SalesPage({ hero }) {
               </p>
             </Reveal>
 
-            <Reveal className="system-visual" role="img" aria-label="Elementos que sustentam uma carreira na HOF">
+            <Reveal
+              className="system-visual"
+              role="img"
+              aria-label="Elementos que sustentam uma carreira na HOF"
+              data-ambient-motion=""
+            >
+              <div className="system-motion-layer" aria-hidden="true">
+                <span className="system-track system-track-outer" />
+                <span className="system-track system-track-middle" />
+                <span className="system-track system-track-inner" />
+              </div>
               <div className="system-center">
                 <CompassIcon />
-                <strong>Carreira HOF</strong>
+                <strong>
+                  <span>Carreira</span>
+                  <span>HOF</span>
+                </strong>
               </div>
               <span className="orbit orbit-one">Técnica</span>
               <span className="orbit orbit-two">Gestão</span>
@@ -626,6 +639,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.add("can-animate");
     const elements = document.querySelectorAll(".reveal");
+    const ambientElements = document.querySelectorAll("[data-ambient-motion]");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -637,8 +651,20 @@ export default function App() {
       },
       { threshold: 0.12, rootMargin: "0px 0px -5%" },
     );
+    const motionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("motion-active", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.05, rootMargin: "10% 0px" },
+    );
     elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    ambientElements.forEach((element) => motionObserver.observe(element));
+    return () => {
+      observer.disconnect();
+      motionObserver.disconnect();
+    };
   }, [path]);
 
   useEffect(() => {
