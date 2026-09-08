@@ -289,9 +289,30 @@ function SalesPage({ hero }) {
               data-ambient-motion=""
             >
               <div className="system-motion-layer" aria-hidden="true">
-                <span className="system-track system-track-outer" />
-                <span className="system-track system-track-middle" />
-                <span className="system-track system-track-inner" />
+                <span className="system-track system-track-outer">
+                  <span className="orbit-anchor orbit-anchor-start">
+                    <span className="orbit">Técnica</span>
+                  </span>
+                  <span className="orbit-anchor orbit-anchor-opposite">
+                    <span className="orbit">Posicionamento</span>
+                  </span>
+                </span>
+                <span className="system-track system-track-middle">
+                  <span className="orbit-anchor orbit-anchor-start">
+                    <span className="orbit">Gestão</span>
+                  </span>
+                  <span className="orbit-anchor orbit-anchor-opposite">
+                    <span className="orbit">Pacientes</span>
+                  </span>
+                </span>
+                <span className="system-track system-track-inner">
+                  <span className="orbit-anchor orbit-anchor-start">
+                    <span className="orbit">Financeiro</span>
+                  </span>
+                  <span className="orbit-anchor orbit-anchor-opposite">
+                    <span className="orbit">Recorrência</span>
+                  </span>
+                </span>
               </div>
               <div className="system-center">
                 <CompassIcon />
@@ -300,12 +321,6 @@ function SalesPage({ hero }) {
                   <span>HOF</span>
                 </strong>
               </div>
-              <span className="orbit orbit-one">Técnica</span>
-              <span className="orbit orbit-two">Gestão</span>
-              <span className="orbit orbit-three">Financeiro</span>
-              <span className="orbit orbit-four">Posicionamento</span>
-              <span className="orbit orbit-five">Pacientes</span>
-              <span className="orbit orbit-six">Recorrência</span>
             </Reveal>
           </div>
         </section>

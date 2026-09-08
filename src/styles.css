@@ -508,7 +508,7 @@ li {
 .system-visual {
   position: relative;
   isolation: isolate;
-  width: min(100%, 520px);
+  width: min(calc(100% - 16px), 520px);
   aspect-ratio: 1;
   margin-inline: auto;
   border: 1px solid rgba(196, 164, 107, 0.32);
@@ -537,52 +537,46 @@ li {
   position: absolute;
   border: 1px solid rgba(196, 164, 107, 0.16);
   border-radius: 50%;
-  animation: system-spin var(--system-duration) linear infinite;
+  animation: system-spin var(--system-duration) linear var(--system-delay) infinite;
   animation-play-state: paused;
   will-change: transform;
 }
 
-.system-track::before,
-.system-track::after {
+.orbit-anchor {
   position: absolute;
-  top: 50%;
-  content: "";
-  border-radius: 50%;
-  background: var(--brass-light);
-  box-shadow: 0 0 0 5px rgba(196, 164, 107, 0.08), 0 0 18px rgba(196, 164, 107, 0.5);
-  transform: translateY(-50%);
+  left: 50%;
+  display: block;
+  transform: translate(-50%, -50%);
 }
 
-.system-track::before {
-  left: -4px;
-  width: 8px;
-  height: 8px;
+.orbit-anchor-start {
+  top: 0;
 }
 
-.system-track::after {
-  right: 11%;
-  width: 4px;
-  height: 4px;
-  opacity: 0.55;
+.orbit-anchor-opposite {
+  top: 100%;
 }
 
 .system-track-outer {
-  --system-duration: 24s;
+  --system-duration: 28s;
+  --system-delay: -2s;
   inset: -1px;
 }
 
 .system-track-middle {
-  --system-duration: 18s;
-  inset: 14%;
-  animation-direction: reverse;
+  --system-duration: 28s;
+  --system-delay: -6.6667s;
+  inset: 12%;
 }
 
 .system-track-inner {
-  --system-duration: 13s;
-  inset: 30%;
+  --system-duration: 28s;
+  --system-delay: -11.3333s;
+  inset: 21%;
 }
 
 .system-visual.motion-active .system-track,
+.system-visual.motion-active .system-track .orbit,
 .system-visual.motion-active .system-center,
 .system-visual.motion-active .system-center svg {
   animation-play-state: running;
@@ -639,8 +633,7 @@ li {
 }
 
 .orbit {
-  position: absolute;
-  z-index: 1;
+  display: block;
   min-width: 104px;
   padding: 9px 13px;
   text-align: center;
@@ -653,60 +646,17 @@ li {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
+  animation: system-counter-spin var(--system-duration) linear var(--system-delay) infinite;
+  animation-play-state: paused;
+  will-change: transform;
 }
-
-.orbit-one {
-  top: -1px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.orbit-two {
-  top: 23%;
-  right: 0;
-  transform: translateY(-50%);
-}
-
-.orbit-three {
-  right: 0;
-  bottom: 23%;
-  transform: translateY(50%);
-}
-
-.orbit-four {
-  bottom: -1px;
-  left: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.orbit-five {
-  bottom: 23%;
-  left: 0;
-  transform: translateY(50%);
-}
-
-.orbit-six {
-  top: 23%;
-  left: 0;
-  transform: translateY(-50%);
-}
-
-.can-animate .system-visual .orbit {
-  opacity: 0;
-}
-
-.can-animate .system-visual.is-visible .orbit {
-  animation: system-label-enter 620ms var(--ease-out) both;
-}
-
-.can-animate .system-visual.is-visible .orbit-two { animation-delay: 55ms; }
-.can-animate .system-visual.is-visible .orbit-three { animation-delay: 110ms; }
-.can-animate .system-visual.is-visible .orbit-four { animation-delay: 165ms; }
-.can-animate .system-visual.is-visible .orbit-five { animation-delay: 220ms; }
-.can-animate .system-visual.is-visible .orbit-six { animation-delay: 275ms; }
 
 @keyframes system-spin {
   to { transform: rotate(1turn); }
+}
+
+@keyframes system-counter-spin {
+  to { transform: rotate(-1turn); }
 }
 
 @keyframes system-core-breathe {
@@ -717,11 +667,6 @@ li {
 
 @keyframes system-compass-turn {
   to { transform: rotate(1turn); }
-}
-
-@keyframes system-label-enter {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .map-section {
@@ -1714,6 +1659,10 @@ li {
     width: min(calc(100% - 32px), var(--container));
   }
 
+  .system-visual {
+    width: min(calc(100% - 60px), 520px);
+  }
+
   .site-header {
     padding-top: 18px;
   }
@@ -1990,13 +1939,9 @@ li {
   }
 
   .system-track,
+  .system-track .orbit,
   .system-center,
-  .system-center svg,
-  .can-animate .system-visual.is-visible .orbit {
+  .system-center svg {
     animation: none !important;
-  }
-
-  .can-animate .system-visual .orbit {
-    opacity: 1;
   }
 }
